@@ -4,10 +4,11 @@ import (
 	"fmt"
 	"gin-vue-admin/global"
 	"gin-vue-admin/utils"
-	"go.uber.org/zap"
-	"go.uber.org/zap/zapcore"
 	"os"
 	"time"
+
+	"go.uber.org/zap"
+	"go.uber.org/zap/zapcore"
 )
 
 var level zapcore.Level
@@ -87,6 +88,7 @@ func getEncoder() zapcore.Encoder {
 }
 
 // getEncoderCore 获取Encoder的zapcore.Core
+// TODO:因为file-rotatelogs已经停止维护,计划使用官方推荐的lumberjack 2021.06.27
 func getEncoderCore() (core zapcore.Core) {
 	writer, err := utils.GetWriteSyncer() // 使用file-rotatelogs进行日志分割
 	if err != nil {
