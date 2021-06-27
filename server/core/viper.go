@@ -39,12 +39,14 @@ func Viper(path ...string) *viper.Viper {
 	v.SetConfigType("yaml")
 	err := v.ReadInConfig()
 	if err != nil {
-		panic(fmt.Errorf("Fatal error config file: %s \n", err))
+		// error strings should not be capitalized
+		panic(fmt.Errorf("fatal error config file %s ", err))
 	}
 	v.WatchConfig()
 
 	v.OnConfigChange(func(e fsnotify.Event) {
 		fmt.Println("config file changed:", e.Name)
+		// 重新加载配置文件
 		if err := v.Unmarshal(&global.GVA_CONFIG); err != nil {
 			fmt.Println(err)
 		}
